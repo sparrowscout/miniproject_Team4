@@ -1,0 +1,95 @@
+.itemBox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    max-width: 600px;
+    border: 1px solid #524210;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+    background-color: #fff;
+    margin: 10px auto 15px;
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+/*기분에 따라 달라지는 이미지*/
+.imgArea {
+    width: 70px;
+    height: 70px;
+    margin-left:10px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+.calmnessImage {background-image: url('../img/calmness.png');}
+.exitedImage {background-image: url('../img/exited.png');}
+.greatImage {background-image: url('../img/great.png');}
+.flutterImage {background-image: url('../img/flutter.png');}
+.tiredImage {background-image: url('../img/tired.png');}
+.stressImage {background-image: url('../img/stress.png');}
+.worryImage {background-image: url('../img/worry.png');}
+.blueImage {background-image: url('../img/blue.png');}
+.sosoImage {background-image: url('../img/soso.png');}
+
+
+/*텍스트 내용*/
+
+.textArea {
+    padding:10px;
+    box-sizing: border-box;
+    width: 85%;
+}
+
+.textArea .date {
+    font-size: 13px;
+    color: gray;
+}
+
+.textArea .text {
+    margin-top:5px;
+    font-size: 18px;
+}
+
+/*작성페이지*/
+.selectType{
+    width: 100%;
+    overflow: scroll;    
+}
+h4{
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+.selectTypeBox{
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    background-color: #fff;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px #9d8d5a;
+    box-sizing: content-box;
+    text-align: center;
+    
+}
+.selectType::-webkit-scrollbar {
+    display: none;
+  }
+.contentBox{
+    display: flex;
+    width: auto;
+}
+
+
+.contentBox label{
+    margin-right:25px;
+}
+.contentBox label:first-child{
+    /* margin-left:15px; */
+}
+.contentBox label img{
+    width:70px;
+}
+
+
+
