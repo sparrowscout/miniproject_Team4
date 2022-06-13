@@ -3,7 +3,7 @@ import { createTheme } from '@mui/material/styles';
 import styled from 'styled-components';
 
 export const theme = createTheme({
-palette: {
+  palette: {
     primary: {
       main: '#FFBD42',
       contrastText: '#fff'
@@ -27,24 +27,24 @@ text-align: center;
 padding-bottom: 20px;
 
 button {
-    /* background-color: #FFBD42;
-    color:#222; */
-    /* padding: 10px;
+    background-color: #FFBD42;
+    color:#222; 
+ padding: 10px;
     border: 1px solid transparent;
     border-radius: 5px;
     width: 214px;
-    margin: 10px 0px; */
+    margin: 10px 0px; 
 
 
-    /* :hover {
+ :hover {
         background-color: #FFBD42;
         color: white;
     }
 
     :active {
         background-color: #F59300;
-    } */
-}
+    } 
+} 
 `;
 
 
