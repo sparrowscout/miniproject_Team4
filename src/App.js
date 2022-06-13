@@ -38,7 +38,7 @@ function App() {
         <Route path="/write" exact element={<Write />} />
         <Route path="/write/:id" exact element={<Write />} />
         <Route path="/detail/:id" exact element={<Detail />} />
-        <Route path="/mypage" exact element={<MyPage />} />
+        <Route path="/mypage/*" exact element={<MyPage />} />
       </Routes>
       </AppLayout>
     
