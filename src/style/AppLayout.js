@@ -14,7 +14,7 @@ const AppLayout = ({ children }) => {
           <div className="btnArea">
             <span className="fillBtn">로그인</span>
             {/* <span className="fillBtn">로그아웃</span> */}
-            <span className="borderBtn">마이페이지</span>
+            <span className="borderBtn" onClick={()=>{navigate('/mypage')}}>마이페이지</span>
           </div>
         </div>
       </Header>
