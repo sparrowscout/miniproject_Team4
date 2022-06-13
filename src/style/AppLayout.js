@@ -12,7 +12,7 @@ const AppLayout = ({ children }) => {
         <div className="conBox">
           <div className="logoBox"  onClick={()=>{navigate('/')}}><img src={logo} alt="" /></div>
           <div className="btnArea">
-            <span className="fillBtn">로그인</span>
+            <span className="fillBtn" onClick={() => {navigate("/login")}}>로그인</span>
             {/* <span className="fillBtn">로그아웃</span> */}
             <span className="borderBtn" onClick={()=>{navigate('/mypage')}}>마이페이지</span>
           </div>

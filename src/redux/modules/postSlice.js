@@ -9,7 +9,7 @@ const initialState ={
 export const fetchPost = createAsyncThunk(
     'post/fetchPost',
     async () => {
-        const response = await axios.get('/api/posting');
+        const response = await axios.get('/posting');
         return response.data
     }
 )
@@ -30,9 +30,9 @@ export const postSlice = createSlice({
     name:'post',
     initialState:  {
         data: [
-            {id: 1, email: 'dev@dev.com', type: 'A', text: 'aaaa'},
-            {id: 1, email: 'dev@dev.com', type: 'A', text: 'aaaa'},
-            {id: 1, email: 'dev@dev.com', type: 'A', text: 'aaaa'},
+            {id: 1, email: 'dev@dev.com', face: 'A', text: 'aaaa'},
+            {id: 1, email: 'dev@dev.com', face: 'A', text: 'aaaa'},
+            {id: 1, email: 'dev@dev.com', face: 'A', text: 'aaaa'},
         ],
     },
     reducers: {

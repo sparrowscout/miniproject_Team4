@@ -40,12 +40,9 @@ const Register = () => {
             "username": Name
         }
 
-        console.log(currentUser)
-        axios.post("http://localhost:5001/users", currentUser)
-        .then(respose => { console.log(respose) })
-        .catch(error => { })
-        .then (console.log('회원가입 성공'))
-
+        axios.post("/users/register", currentUser)
+        .then(response => { console.log(response)})
+        .catch(error => { console.log(error)})
     }
 
     return (

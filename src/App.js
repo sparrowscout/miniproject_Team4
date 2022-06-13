@@ -15,7 +15,7 @@ import  AppLayout from "./style/AppLayout"
 function App() {
 
   const dispatch = useDispatch();
-  const [is_login, setIsLogin] = useState(false)
+  // const [is_login, setIsLogin] = useState(false)
 
   // api에서 리덕스로 옮겨와 가져온 포스트들
   let postList = useSelector(state => state.post.data)

@@ -28,12 +28,17 @@ const Login = () => {
 
     const userLogin = async () => {
         try {
-            const reponse = await axios.get('http://localhost:5001/users',{
-                params: {
-                    "email":Email,
-                    "password":Password
-                }
-            })
+
+            const currentUser = {
+                "email": Email,
+                "password": Password
+            }
+    
+            // axios.post("/users/register", currentUser)
+            // .then(response => { console.log(response)})
+            // .catch(error => { console.log(error)})
+
+            const reponse = await axios.post('/users/login', currentUser);
             console.log(...reponse.data);
             dispatch(addUser(...reponse.data));
             // setCurrentUser(reponse.data);
