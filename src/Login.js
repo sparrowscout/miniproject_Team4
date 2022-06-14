@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux"
 import store from "./redux/configStore";
 
 const Login = () => {
-    // const [currentUser, setCurrentUser] = useState(null);
     const dispatch = useDispatch()
     
     const navigate = useNavigate();
