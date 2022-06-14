@@ -17,7 +17,7 @@ const Write = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const scrollRef = useRef(null);
-  const [type, setType] = useState(null);  
+  const [type, setType] = useState("exited");  
   const [text, setText] = useState("");
   const [email,setEmail] = useState("")
   const [isDrag, setIsDrag] = useState(false);

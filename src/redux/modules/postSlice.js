@@ -9,7 +9,7 @@ const initialState ={
 export const fetchPost = createAsyncThunk(
     'post/fetchPost',
     async () => {
-        const response = await axios.get("http://localhost:5001/posting");
+        const response = await axios.get('http://localhost:5002/posting');
         return response.data
     }
 )
@@ -18,7 +18,7 @@ export const fetchPost = createAsyncThunk(
 export const updatePoste = createAsyncThunk(
     'post/updatePost',
     async (newPost) => {
-        const response = await axios.post("http://localhost:5001/posting",newPost)
+        const response = await axios.post('http://localhost:5002/posting',newPost)
         return response.data
     }
 
@@ -37,8 +37,15 @@ export const postSlice = createSlice({
     },
     reducers: {
         listLoad :(state, action) => { 
-            state.data = action.payload           
-        }    
+            state.data = action.payload                      
+        },
+        listUpdate :(state, action) => {
+            console.log('ddddd')
+            state.data.push(action.payload) 
+            console.log(action.payload)      
+
+        }   
+         
     },
     extraReducers: {
         [fetchPost.pending.type]: (state = initialState, action) => { // 호출 전
@@ -56,5 +63,5 @@ export const postSlice = createSlice({
 
 
 
-export const {listLoad} = postSlice.actions
+export const {listLoad, listUpdate} = postSlice.actions
 export default postSlice.reducer

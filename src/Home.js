@@ -10,20 +10,22 @@ const Home = () => {
 
   // api에서 리덕스로 옮겨와 가져온 포스트들
   let postList = useSelector((state) => state.post.data);
+  console.log(postList)
   let items = !postList ? [] : postList;
+
 
 
   const Emoji = (type) => {
     return (
-      (type === "A" && "우울해") ||
-      (type === "B" && "완전 좋아") ||
-      (type === "C" && "설레") ||
-      (type === "D" && "그저 그래") ||
-      (type === "E" && "피곤해") ||
-      (type === "F" && "기분 최고!") ||
-      (type === "G" && "평온해") ||
-      (type === "H" && "짜증나") ||
-      (type === "I" && "걱정돼")
+      (type === "calmness" && "평온해") ||
+      (type === "exited" && "기분 최고!") ||
+      (type === "great" && "완전 좋아") ||
+      (type === "flutter" && "설레") ||
+      (type === "tired" && "피곤해") ||
+      (type === "stress" && "짜증나") ||
+      (type === "worry" && "걱정돼") ||
+      (type === "blue" && "우울해") ||
+      (type === "soso" && "그저 그래")
     );
   };
 
