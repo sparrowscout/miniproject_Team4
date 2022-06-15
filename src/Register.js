@@ -29,9 +29,6 @@ const Register = () => {
         setconfirmPassword(event.currentTarget.value)
     }
 
-    //회원가입 post 요청 (Axios)
-    const registerUser = (event) => {
-        event.preventDefault()
 
         //사용자가 입력한 값 DB에 POST 요청
         const currentUser = {

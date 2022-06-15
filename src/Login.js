@@ -1,9 +1,6 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { addUser } from "./redux/modules/Users";
-import { useDispatch } from "react-redux"
-import store from "./redux/configStore";
 
 const Login = () => {
     const dispatch = useDispatch()
