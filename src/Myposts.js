@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
-const MyPosts = () => {
-
+const MyPosts = (props) => {
+    const user_nickname = props.nickname.nickname
     let postList = useSelector((state) => state.post.data);
     let items = !postList ? [] : postList;
 
@@ -26,26 +27,48 @@ const MyPosts = () => {
     return (
         <>
             {items.map((p, idx) => {
+              if(p.nickname === user_nickname){
                 return (
-                  <div
+                  <>
+                  <PostBox
                     key={idx}
-                    className="itemBox"
                     onClick={() => {navigate("/detail/" + p.id , {state:items}); }}>
                     <div className={p.face + "Image imgArea"}></div>
-                    <div className="textArea">
-                      <div className="date">
-                        {p.createdAt}| {Emoji(p.face)} | {p.nickname}
+                    <div className="textArea" style={{textAlign:"left", marginLeft:"15px"}}>
+                      <div className="date" >
+                        {p.createdAt}<TextDivider> | </TextDivider> {Emoji(p.face)}<TextDivider> | </TextDivider> {p.nickname}
                       </div>
                       <div className="text">
                         {p.text.length < 50 ? p.text : p.text.slice(0, 35) + "..."}
                       </div>
+                     
                     </div>
-                  </div>
-                );
+                    
+                  </PostBox>
+                   <PostDivider/>
+                   </>
+                )} else {
+                  return (null)
+                }
               })}
         </>
           
     )
 }
+
+const PostBox = styled.div`
+display: grid;
+grid-template-columns: 1fr 9fr;
+padding: 20px;
+`;
+
+const TextDivider = styled.span`
+color: #d9d9d9;
+`;
+
+const PostDivider = styled.hr`
+border: solid 0.8px #eee;
+max-width: 100%
+`;
 
 export default MyPosts;
