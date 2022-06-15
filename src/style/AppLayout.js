@@ -1,24 +1,62 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import logo from '../img/logo.svg'
 import "./btn.css"
 
-const AppLayout = ({ children }) => {
-    const navigate = useNavigate();
+const AppLayout = (props) => {
+  const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    async function isLoginDB() {
+      const response = await fetch('/api/nickname',
+      {
+        method: 'GET',
+      });
+      const data = await response.json()
+      const user = data.nickname
+      if (user !== null) { 
+        setIsLogin(true);
+      } else {
+        setIsLogin(false);
+      }
+    }
+    isLoginDB();
+  },[])
+
+  async function logout() {
+    const response = await fetch('/api/users/logout',{
+      method:'POST',
+      headers: {
+        'Content-Type': 'application/json',
+    },
+    body:JSON.stringify()
+    })
+    const data = await response.json();
+    console.log(data);
+    document.cookie = "JSESSIONID=; expires=Thu, 01 Jan 1970 00:00:01 GMT;"
+    window.location.reload()
+  }
+ 
   return (
     <Wrap>
       <Header>
         <div className="conBox">
-          <div className="logoBox"  onClick={()=>{navigate('/')}}><img src={logo} alt="" /></div>
+          <div className="logoBox" onClick={() => { navigate('/') }}><img src={logo} alt="" /></div>
+
           <div className="btnArea">
-            <span className="fillBtn" onClick={() => {navigate("/login")}}>로그인</span>
-            {/* <span className="fillBtn">로그아웃</span> */}
-            <span className="borderBtn" onClick={()=>{navigate('/mypage')}}>마이페이지</span>
+            {isLogin ? <span className="borderBtn" onClick={() => { navigate('/mypage') }}>마이페이지</span> :
+              <span className="borderBtn" onClick={() => { navigate('/register')}}>회원가입</span>}
+
+            {isLogin ? <span className="fillBtn" onClick={logout}> 로그아웃 </span> :
+              <span className="fillBtn" onClick={() => { navigate("/login") }}>로그인</span>}
+
+
           </div>
         </div>
       </Header>
-      <Container>{children}</Container>
+      <Container>{props.children}</Container>
     </Wrap>
   );
 };

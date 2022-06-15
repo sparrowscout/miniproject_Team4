@@ -7,16 +7,18 @@ import store from './redux/configStore';
 import { Provider } from "react-redux"
 import axios from 'axios';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 // axios.defaults.xsrfCookieName = 'csrftoken';
 // axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
 root.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+
 
 
 );
