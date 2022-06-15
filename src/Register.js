@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState, Dispatch } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
 import { Link } from "react-router-dom";
@@ -29,9 +29,6 @@ const Register = () => {
         setconfirmPassword(event.currentTarget.value)
     }
 
-    //회원가입 post 요청 (Axios)
-    const registerUser = (event) => {
-        event.preventDefault()
 
         //사용자가 입력한 값 DB에 POST 요청
         const currentUser = {
