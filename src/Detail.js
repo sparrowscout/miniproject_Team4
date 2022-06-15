@@ -9,7 +9,6 @@ import axios from "axios";
 import "./style/board.css";
 
 
-
 const Detail = () => {
   let postList = useSelector((state) => state.post.data);
   let nickname = useSelector((state) => state.post.nickname);
@@ -79,6 +78,21 @@ const Emoji = (face) => {
   })
 
 
+  const Emoji = (type) => {
+    return (
+      (type === "calmness" && "평온해") ||
+      (type === "exited" && "기분 최고!") ||
+      (type === "great" && "완전 좋아") ||
+      (type === "flutter" && "설레") ||
+      (type === "tired" && "피곤해") ||
+      (type === "stress" && "짜증나") ||
+      (type === "worry" && "걱정돼") ||
+      (type === "blue" && "우울해") ||
+      (type === "soso" && "그저 그래")
+    );
+  };
+
+
   return (
     <div className="detailContent">
       {items.map((i, idx) => {
@@ -118,6 +132,7 @@ const Emoji = (face) => {
                 </div>
               </div>
               <div className="teaxArea">{i.text}</div>
+
             </div>
           </div>
         ) : null;
