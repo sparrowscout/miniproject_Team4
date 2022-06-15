@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 const initialState = {
     data: [],
     nickname: []
 };
+
 
 
 //(로그인체크)만약 현재 로그인 상황이면 닉네임을 뱉을거고 아니면 null을 뱉어낼꺼에요!
@@ -33,6 +35,7 @@ export const updatePoste = createAsyncThunk(
             body: JSON.stringify(newPost),
         })
         console.log(response);
+        window.location.reload()
     }
 );
 
@@ -46,6 +49,7 @@ export const deletePost = createAsyncThunk(
             .then(response => response.json())
             .then(data => console.log(data))
             .catch(error => console.log(error));
+            window.location.reload()
         return postIndex;
     })
 
