@@ -3,25 +3,28 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import logo from '../img/logo.svg'
 import "./btn.css"
+import { useLocation } from "react-router-dom";
 
 const AppLayout = (props) => {
+  // const {state} = useLocation();
+  // console.log(state)
   const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    async function isLoginDB() {
-      const response = await fetch('/api/nickname',
-      {
-        method: 'GET',
-      });
-      const data = await response.json()
-      const user = data.nickname
-      if (user !== null) { 
-        setIsLogin(true);
-      } else {
-        setIsLogin(false);
-      }
+  async function isLoginDB() {
+    const response = await fetch('/api/nickname',
+    {
+      method: 'GET',
+    });
+    const data = await response.json()
+    const user = data.nickname
+    if (user !== null) { 
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
     }
+  }
+  useEffect(()=>{
     isLoginDB();
   },[])
 
@@ -46,7 +49,7 @@ const AppLayout = (props) => {
           <div className="logoBox" onClick={() => { navigate('/') }}><img src={logo} alt="" /></div>
 
           <div className="btnArea">
-            {isLogin ? <span className="borderBtn" onClick={() => { navigate('/mypage') }}>마이페이지</span> :
+            {isLogin ? <span className="borderBtn" onClick={() => { navigate('/mypage/posts') }}>마이페이지</span> :
               <span className="borderBtn" onClick={() => { navigate('/register')}}>회원가입</span>}
 
             {isLogin ? <span className="fillBtn" onClick={logout}> 로그아웃 </span> :

@@ -11,9 +11,6 @@ const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { state } = useLocation();
-  console.log(state)
-
   // api에서 리덕스로 옮겨와 가져온 포스트 목록 & 닉네임
   let postList = useSelector((state) => state.post.data);
   let items = !postList ? [] : postList;

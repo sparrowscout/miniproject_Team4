@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 const Login = () => {
     const [isLogin, setIsLogin] = useState(false);
+    const [error , setError] = useState("");
 
     const navigate = useNavigate();
     const [Email, setEmail] = useState("")
@@ -22,7 +23,11 @@ const Login = () => {
         password: Password
     }
 
+    const afterLogin = () => {
 
+    }
+
+//시간이라도 넣어야하나...
     async function userLogin() {
         await fetch('/api/users/login', {
             method: 'POST',
@@ -30,11 +35,25 @@ const Login = () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data)
-        }).then((response) => response.json())
-            .then((data) => console.log('성공:', data))
-        setIsLogin(true);
-        navigate("/")
-    }
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if(!data.result){
+                    console.log(data.err_msg)
+                    setError(data.err_msg)
+                } else {
+                    setIsLogin(true);
+                    console.log(isLogin)
+                    navigate("/", { state: isLogin })
+                }
+
+            })
+        }
+
+    
+        // const errorMsg = () => {
+        //     if(error )
+        // }
 
 
 
@@ -45,9 +64,10 @@ const Login = () => {
             <LoginContainer>
                 <input placeholder="email" onChange={onEmailHandler} /> <br />
                 <input placeholder="password" type="password" onChange={onPasswordHandler} /> <br />
+                {error !== "" ? <><ErrMsg>❗️ {error}</ErrMsg><br/></> : null}
                 <button type="submit" onClick={userLogin}>로그인</button>
             </LoginContainer>
-            <Link to="/register" >회원가입 </Link>
+            <Link to="/register" >회원가입</Link>
 
         </Container>
     );
@@ -65,6 +85,20 @@ const Container = styled.div`
 
         a{
             font-size: 12px;
+
+            :link{
+                color: #FF8A00;
+            }
+
+            :visited{
+                color: #FF8A00;
+            }
+            :hover{
+                color: #222;
+            }
+            :active{
+                color:#FFE2BF;
+            }
         }
         `;
 
@@ -94,6 +128,12 @@ const LoginContainer = styled.div`
                 background-color: #F59300;
             }
         }
+        `;
+
+        const ErrMsg = styled.span`
+        color: #e74c3c;
+        font-size: 12px;
+        
         `;
 
 
