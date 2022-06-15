@@ -30,17 +30,27 @@ const Register = () => {
     }
 
 
-        //사용자가 입력한 값 DB에 POST 요청
-        const currentUser = {
-            "email": Email,
-            "password": Password,
-            "username": Name
+    let data = {
+        email: Email,
+        password: Password,
+        nickname:Name
+    }
+
+    async function userRegister () {
+        await fetch('/api/users/register',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        }).then((response) => response.json())
+        .catch((error) => {console.error('실패:',error)})
+        navigate("/login")
         }
 
-        axios.post("/users/register", currentUser)
-        .then(response => { console.log(response)})
-        .catch(error => { console.log(error)})
-    }
+
+
+
 
     return (
         <Container>
@@ -50,7 +60,7 @@ const Register = () => {
                 <input placeholder="password" type="password"onChange={onPasswordHandler}/> <br />
                 <input placeholder="password confirm" type="password" onChange={onconfirmPasswordHandler}/> <br />
                 <input placeholder="이름" onChange={onNameHandler}/> <br />
-                <button onClick={registerUser} type="submit">회원가입</button>
+                <button onClick={userRegister} type="submit">회원가입</button>
             </LoginContainer>
 
             <Link to="/login" >로그인 </Link>
