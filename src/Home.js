@@ -1,29 +1,49 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams  } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./style/board.css";
 import "./style/btn.css"
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { fetchNick, fetchPost } from "./redux/modules/postSlice";
 
 const Home = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  
 
-  // api에서 리덕스로 옮겨와 가져온 포스트들
+  const { state } = useLocation();
+  console.log(state)
+
+  // api에서 리덕스로 옮겨와 가져온 포스트 목록 & 닉네임
   let postList = useSelector((state) => state.post.data);
   let items = !postList ? [] : postList;
+  let nickname = useSelector((state) => state.post.nickname);
 
+  React.useEffect(() => {
+    dispatch(fetchPost()); // 게시물 다시 목록을 불러옵니다   
+    dispatch(fetchNick()) // 닉네임여부로 로그인을 체크하고 있는데 로그인 후에도 바로 불러오지 못해서 다시 함수를 실행했습니다
+  }, []);
 
-  const Emoji = (type) => {
+  const userCheck = () => {
+    if (nickname.nickname !== null) {
+      navigate('/write')
+    } else if (nickname.nickname === null) {
+      alert('로그인이 필요해요!');
+      navigate('/login')
+    }
+  }
+
+  const Emoji = (face) => {
     return (
-      (type === "A" && "우울해") ||
-      (type === "B" && "완전 좋아") ||
-      (type === "C" && "설레") ||
-      (type === "D" && "그저 그래") ||
-      (type === "E" && "피곤해") ||
-      (type === "F" && "기분 최고!") ||
-      (type === "G" && "평온해") ||
-      (type === "H" && "짜증나") ||
-      (type === "I" && "걱정돼")
+      (face === "calmness" && "평온해") ||
+      (face === "exited" && "기분 최고!") ||
+      (face === "great" && "완전 좋아") ||
+      (face === "flutter" && "설레") ||
+      (face === "tired" && "피곤해") ||
+      (face === "stress" && "짜증나") ||
+      (face === "worry" && "걱정돼") ||
+      (face === "blue" && "우울해") ||
+      (face === "soso" && "그저 그래")
     );
   };
 
@@ -34,23 +54,23 @@ const Home = () => {
           <div
             key={idx}
             className="itemBox"
-            onClick={() => {navigate("/detail/" + p.id , {state:items}); }}>
-            <div className={p.type + "Image imgArea"}></div>
+            onClick={() => { navigate("/detail/" + p.id); }}>
+            <div className={p.face + "Image imgArea"}></div>
             <div className="textArea">
               <div className="date">
-                2022-06-12 | {Emoji(p.type)} | {p.email}
+                {p.createdAt} | {Emoji(p.face)} | {p.nickname}
               </div>
               <div className="text">
-                {p.text.length < 50 ? p.text : p.text.slice(0, 35) + "..."}
+                {p.text}
               </div>
             </div>
           </div>
         );
       })}
-      <button className="write" onClick={()=>{
-        navigate('/write')
+      <button className="write" onClick={() => {
+        userCheck()
       }}>+</button>
-     
+
     </>
   );
 };

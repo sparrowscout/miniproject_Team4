@@ -1,5 +1,5 @@
 .write{
-    position: absolute;
+    position: fixed;
     right: 5px;
     bottom: 10px;
     width: 60px;

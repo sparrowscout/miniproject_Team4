@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Login = () => {
+    const [isLogin, setIsLogin] = useState(false);
 
     const navigate = useNavigate();
     const [Email, setEmail] = useState("")
@@ -14,7 +15,6 @@ const Login = () => {
 
     const onPasswordHandler = (event) => {
         setPassword(event.currentTarget.value)
-
     }
 
     let data = {
@@ -31,27 +31,29 @@ const Login = () => {
             },
             body: JSON.stringify(data)
         }).then((response) => response.json())
-        .then((data) => console.log('성공:', data))
+            .then((data) => console.log('성공:', data))
+        setIsLogin(true);
         navigate("/")
     }
 
 
 
-        return (
-            <Container>
-                <h1>Login</h1>
-                <LoginContainer>
-                    <input placeholder="email" onChange={onEmailHandler} /> <br />
-                    <input placeholder="password" type="password" onChange={onPasswordHandler} /> <br />
-                    <button type="submit" onClick={userLogin}>로그인</button>
-                </LoginContainer>
-                <Link to="/register" >회원가입 </Link>
 
-            </Container>
-        );
-        
-        }
-    const Container = styled.div`
+    return (
+        <Container>
+            <h1>Login</h1>
+            <LoginContainer>
+                <input placeholder="email" onChange={onEmailHandler} /> <br />
+                <input placeholder="password" type="password" onChange={onPasswordHandler} /> <br />
+                <button type="submit" onClick={userLogin}>로그인</button>
+            </LoginContainer>
+            <Link to="/register" >회원가입 </Link>
+
+        </Container>
+    );
+
+}
+const Container = styled.div`
         border: 1px solid transparent;
         max-width: 480px;
         margin: 30px auto;
@@ -66,7 +68,7 @@ const Login = () => {
         }
         `;
 
-    const LoginContainer = styled.div`
+const LoginContainer = styled.div`
         input {
             padding: 5px;
             width: 200px;
@@ -96,4 +98,4 @@ const Login = () => {
 
 
 
-    export default Login;
+export default Login;

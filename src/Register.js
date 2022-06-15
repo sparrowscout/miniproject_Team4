@@ -46,7 +46,8 @@ const Register = () => {
         }).then((response) => response.json())
         .catch((error) => {console.error('실패:',error)})
         navigate("/login")
-        }
+        document.cookie=""
+    }
 
 
 
