@@ -13,35 +13,35 @@ const AppLayout = (props) => {
 
   async function isLoginDB() {
     const response = await fetch('/api/nickname',
-    {
-      method: 'GET',
-    });
+      {
+        method: 'GET',
+      });
     const data = await response.json()
     const user = data.nickname
-    if (user !== null) { 
+    if (user !== null) {
       setIsLogin(true);
     } else {
       setIsLogin(false);
     }
   }
-  useEffect(()=>{
+  useEffect(() => {
     isLoginDB();
-  },[])
+  }, [])
 
   async function logout() {
-    const response = await fetch('/api/users/logout',{
-      method:'POST',
+    const response = await fetch('/api/users/logout', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-    },
-    body:JSON.stringify()
+      },
+      body: JSON.stringify()
     })
     const data = await response.json();
     console.log(data);
     document.cookie = "JSESSIONID=; expires=Thu, 01 Jan 1970 00:00:01 GMT;"
-    window.location.reload()
+    window.location.replace("/");
   }
- 
+
   return (
     <Wrap>
       <Header>
@@ -49,13 +49,11 @@ const AppLayout = (props) => {
           <div className="logoBox" onClick={() => { navigate('/') }}><img src={logo} alt="" /></div>
 
           <div className="btnArea">
-            {isLogin ? <span className="borderBtn" onClick={() => { navigate('/mypage/posts') }}>마이페이지</span> :
-              <span className="borderBtn" onClick={() => { navigate('/register')}}>회원가입</span>}
+            {isLogin ? <HeaderLink className="borderBtn" onClick={() => { navigate('/mypage/posts') }}>마이페이지</HeaderLink> :
+              <HeaderLink className="borderBtn" onClick={() => { navigate('/register') }}>회원가입</HeaderLink>}
 
-            {isLogin ? <span className="fillBtn" onClick={logout}> 로그아웃 </span> :
-              <span className="fillBtn" onClick={() => { navigate("/login") }}>로그인</span>}
-
-
+            {isLogin ? <HeaderLink className="fillBtn" onClick={logout}> 로그아웃 </HeaderLink> :
+              <HeaderLink className="fillBtn" onClick={() => { navigate("/login") }}>로그인</HeaderLink>}
           </div>
         </div>
       </Header>
@@ -82,6 +80,11 @@ const Header = styled.div`
     margin: auto;
     text-align: center;
     padding: 15px 0;
+    @media screen and (max-width: 480px){
+          margin:30px auto 7px;
+    }
+  
+    
     .logoBox{
         width:15%;
         height:100%;
@@ -90,18 +93,26 @@ const Header = styled.div`
         display:flex;
         img {
             width:100%;
+
+            
         }
+        
+        
     }
     .btnArea {
-      position: absolute;
+      position: fixed;
       right: 0;
       top: 0;
+      margin: 5px 10px;
+      
       span {
         display:inline-block;
         margin-left:10px;
         font-size:15px;
         padding:5px;
         cursor:pointer;
+
+
 
       }
     }
@@ -114,10 +125,29 @@ const Container = styled.div`
   max-width:750px;
   margin:auto;
   box-sizing:border-box;
+  @media screen and (max-width: 480px){
+    padding-top: 150px;
+  }
+  
 `;
 
 const FillBtn = styled.button`
   padding: 5px;
+
+`;
+
+const HeaderLink = styled.span`
+color:#FF8A00;
+padding: 10px;
+
+
+
+:hover{
+                color: #222;
+            }
+            :active{
+                color:#FFE2BF;
+            }
 `;
 
 export default AppLayout;

@@ -3,13 +3,15 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
 import { Link } from "react-router-dom";
+import { LoginContainer, Container, Msgbox } from "./style/styles";
 
 
 const Register = () => {
     const [error , setError] = useState("");
     const [pwError, setPwError] = useState(false);
-    const [pwConfirm, setPwConfirm] = useState(false);
+    const [pwConfirm, setPwConfirm] = useState(true);
     const [nickError, setNickError] = useState(false);
+    const [emailVaild, setEmailValid] = useState(false);
 
     const navigate = useNavigate();
 
@@ -22,9 +24,12 @@ const Register = () => {
         setEmail(event.currentTarget.value)
     }
 
+
+
+
     const onPasswordHandler = (event) => {
         setPassword(event.currentTarget.value)
-        if (Password.length<5){
+        if (Password.length<4){
             setPwError(true);
         } else {
             setPwError(false)
@@ -37,16 +42,12 @@ const Register = () => {
             setNickError(true);
         } else {
             setNickError(false);
-        }
+        };
     }
 
     const onconfirmPasswordHandler = (event) => {
         setconfirmPassword(event.currentTarget.value)
-        if (confirmPassword === Password) {
-            setPwConfirm(false);
-        } else {
-            setPwConfirm(true);
-        }
+
     }
 
 
@@ -57,7 +58,11 @@ const Register = () => {
     }
 
     async function userRegister () {
-        await fetch('/api/users/register',{
+        validCheck();
+        if (!isActive){
+            return
+        }
+        await fetch('http://3.39.226.189/api/users/register',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -75,23 +80,50 @@ const Register = () => {
         })
     }
 
+    const [isActive, setIsActive] = useState(true);
+
+// const isValidEmail = Email.includes('@') && Email.includes('.');
+// const isValidPassword = confirmPassword === Password && Password.length>5
+// const isValidInput = Name.length >= 1 && Email.length >= 1 && Password.length >= 1;
 
 
+const validPw = () => {
+    if (confirmPassword === Password){
+        setPwConfirm(true);
+    } else {
+        setPwConfirm(false);
+    };
+}
+    const validCheck = () => {
+        validPw()
+     if (nickError && pwConfirm && pwError  === false){
+    setIsActive(true);
+   } else if (!Name.length >= 1 && Email.length >= 1 && Password.length >= 1){
+    setIsActive(false);
+    alert('내용을 채워주세요!')
+   } else {
+    setIsActive(false)
+   }   
+    }
+
+   
 
 
     return (
         <Container>
             <h1>Join us</h1>
             <LoginContainer>
+            
                 <input placeholder="email" onChange={onEmailHandler}/> <br />
-                {error !== "" ? <Msgbox>❗️ {error}</Msgbox> : null}
+                {error === "중복된 Email이 존재합니다." ? <Msgbox>❗️ {error}</Msgbox> : null}
                 <input placeholder="password" type="password"onChange={onPasswordHandler}/> <br />
                 {pwError ? <Msgbox>❗️비밀번호는 최소 5자 이상이어야 합니다.</Msgbox> : null}
                 <input placeholder="password confirm" type="password" onChange={onconfirmPasswordHandler}/> <br />
-                {pwConfirm ? <Msgbox>❗️비밀번호가 일치하지 않습니다.</Msgbox> : null}
+                {pwConfirm ? null : <Msgbox>❗️비밀번호가 일치하지 않습니다.</Msgbox>}
                 <input placeholder="nickname" onChange={onNameHandler}/> <br />
                 {nickError ? <Msgbox>❗️닉네임은 10자 이하여야 합니다.</Msgbox> : null}
-                <button onClick={userRegister} type="submit">회원가입</button>
+                {error === "중복된 닉네임이 존재합니다." ? <Msgbox>❗️ {error}</Msgbox> : null}
+                <button onClick={userRegister} type="submit">회원가입</button> 
             </LoginContainer>
 
             <Link to="/login" >로그인 </Link>
@@ -101,82 +133,8 @@ const Register = () => {
     )
 }
 
-const Container = styled.div`
-border: 1px solid transparent;
-max-width: 480px;
-margin: 30px auto;
-background-color: white;
-border-radius: 10px;
-padding: 30px 30px 80px 30px;
-text-align: center;
-
-a{
-            font-size: 12px;
-
-            :link{
-                color: #FF8A00;
-            }
-
-            :visited{
-                color: #FF8A00;
-            }
-            :hover{
-                color: #222;
-            }
-            :active{
-                color:#FFE2BF;
-            }
-        }
-`;
-
-const LoginContainer = styled.div`
 
 
-span {
-    font-display: unset;
-}
-
-input {
-    padding: 5px;
-    width: 200px;
-    margin: 10px 0px 0px;
-    background-color: white;
-    border: 0px solid transparent;
-    border-bottom: 1px #FFBD42 solid;
-    padding: 10px;
-
-}
-
-button {
-    background-color: #FFBD42;
-    color: #222;    
-    padding: 10px;
-    border: 1px solid transparent;
-    border-radius: 5px;
-    width: 214px;
-    margin: 10px 0px;
 
 
-    :hover {
-        background-color: #FFBD42;
-        color: white;
-    }
-
-    :active {
-        background-color: #F59300;
-    }
-}
-`;
-
-
-const ErrMsg = styled.span`
-
-`;
-
-const Msgbox = styled.div`
-margin: 3px 0px 9px;
-color: #e74c3c;
-font-size: 12px;
-text-align: center;
-`;
 export default Register;

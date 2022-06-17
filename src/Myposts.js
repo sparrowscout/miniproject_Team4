@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { TextDivider, PostBox, myPostContainer, PostDivider } from "./style/styles";
 
 const MyPosts = (props) => {
     const user_nickname = props.nickname.nickname
@@ -25,11 +26,12 @@ const MyPosts = (props) => {
     };
 
     return (
-        <>
+       
+           <myPostContainer>
             {items.map((p, idx) => {
               if(p.nickname === user_nickname){
                 return (
-                  <>
+               <>
                   <PostBox
                     key={idx}
                     onClick={() => {navigate("/detail/" + p.id , {state:items}); }}>
@@ -46,29 +48,17 @@ const MyPosts = (props) => {
                     
                   </PostBox>
                    <PostDivider/>
-                   </>
+                  </>
                 )} else {
                   return (null)
                 }
               })}
-        </>
+               </myPostContainer>
+    
           
     )
 }
 
-const PostBox = styled.div`
-display: grid;
-grid-template-columns: 1fr 9fr;
-padding: 20px;
-`;
 
-const TextDivider = styled.span`
-color: #d9d9d9;
-`;
-
-const PostDivider = styled.hr`
-border: solid 0.8px #eee;
-max-width: 100%
-`;
 
 export default MyPosts;

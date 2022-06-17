@@ -193,7 +193,7 @@ const Write = () => {
               <div className="imgArea">
                 <img src={worryImage} alt="" />
               </div>
-              <p>평온해</p>
+              <p>걱정돼</p>
             </label>
             <label
               htmlFor="h_type"

@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
+import { MoodContainer } from "./style/styles";
 const MyMoods = (props) => {
   const user_nickname = props.nickname.nickname
   let postList = useSelector((state) => state.post.data);
@@ -55,16 +55,6 @@ const MyMoods = (props) => {
   )
 }
 
-const MoodContainer = styled.div`
-width: 100%;
-display: grid;
-grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 
-span {
-  font-size: 12px;
-  color: #999;
-}
-
-`;
 
 export default MyMoods;
